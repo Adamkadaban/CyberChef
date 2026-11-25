@@ -13,7 +13,6 @@ jobs:
   main:
     permissions:
       contents: write
-      pages: write
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -23,6 +22,8 @@ jobs:
         node-version: [24, 26]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set node version
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -71,5 +72,7 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: ./build/prod
+          fqdn: chef.hackback.zip
+          jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
